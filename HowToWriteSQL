@@ -21,3 +21,29 @@ Update table_name SET column_name = NULL
 # How to Update a cell to NULL
 Update table_name SET column1_name = NULL
 WHERE column2_name = 'character' #(or = value)#
+
+# How to Inner Join, Left Outer Join, Right Outer Join or Full Outer Join
+
+SELECT * 
+FROM table1_name
+INNER JOIN table2_name
+     ON table1_name.column = table2_name.column 
+-- Here only showing common contents from both tables 
+
+SELECT *
+FROM table1_name
+LEFT OUTER JOIN table2_name
+     ON table1_name.column = table2_name.column
+-- Here only showing contents from table1
+
+SELECT *
+FROM table1_name
+RIGHT OUTER JOIN table2_name
+     ON table1_name.column = table2_name.column
+-- Here only showing contents from table2
+
+SELECT *
+FROM table1_name
+FULL OUTER JOIN table2_name
+     ON table1_name.column = table2_name.column
+-- Here showing all contents from both tables
