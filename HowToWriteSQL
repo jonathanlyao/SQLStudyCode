@@ -15,11 +15,11 @@ INSERT INTO table_name(Column 1, Column 2, ... )
         ('character 2', value 2, ...),
         ('character 3', value 3, ...)
         
-# How to Update a column to NULL
-Update table_name SET column_name = NULL
+# How to Update a column to NULL / Value / Character
+Update table_name SET column_name = NULL / Value / Character
 
-# How to Update a cell to NULL
-Update table_name SET column1_name = NULL
+# How to Update a cell to NULL / Value / Character
+Update table_name SET column1_name = NULL / Value / Character
 WHERE column2_name = 'character' #(or = value)#
 
 # How to Inner Join, Left Outer Join, Right Outer Join or Full Outer Join
@@ -84,3 +84,14 @@ JOIN table_name2
 GROUP BY Column_1
 HAVING AVG(Column_2) > value
 ORDER BY AVG(Column_2)
+
+# How to use PARTITION 
+
+SELECT Column_1, 
+COUNT(Column_2) OVER (PARTITION BY Column_2) AS Newcolumn_name
+FROM table_name1 T1
+JOIN table_name2 T2
+	ON T1.column = T2.column
+
+
+GROUP BY Column_1
