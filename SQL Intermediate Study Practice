@@ -1,0 +1,179 @@
+SELECT Gender, COUNT(Gender) AS Number
+FROM SQLTutorial.dbo.EmployeeDemographics
+WHERE Age > 31
+GROUP BY Gender
+ORDER BY Number ASC
+
+SELECT * 
+FROM SQLTutorial.dbo.EmployeeDemographics
+
+SELECT * 
+FROM SQLTutorial.dbo.EmployeeSalary
+
+INSERT INTO SQLTutorial.dbo.EmployeeDemographics(EmployeeID, FirstName, LastName, Age, Gender)
+VALUES ('1011', 'Ryan', 'Howard', '26', 'Male'),
+       ('1012', 'Holly', 'Flax', '30', 'Female'), 
+	   ('1013', 'Darryl', 'PHilbin', '30', 'Male');  
+
+UPDATE SQLTutorial.dbo.EmployeeDemographics SET EmployeeID = NULL 
+WHERE FirstName = 'Holly'; 
+
+UPDATE SQLTutorial.dbo.EmployeeDemographics SET Age = NULL
+WHERE FirstName = 'Holly'; 
+
+UPDATE SQLTutorial.dbo.EmployeeDemographics SET Gender = NULL
+WHERE FirstName = 'Holly'; 
+
+UPDATE SQLTutorial.dbo.EmployeeDemographics SET Age = NULL
+WHERE FirstName = 'Darryl'; 
+
+INSERT INTO SQLTutorial.dbo.EmployeeSalary(EmployeeID, JobTitle, Salary)
+VALUES ('1010', 'stupidman', '47000'),
+       ('1011', 'Salesman', '43000'); 
+	   
+UPDATE SQLTutorial.dbo.EmployeeSalary SET JobTitle = NULL
+WHERE EmployeeID = '1010'; 
+
+UPDATE SQLTutorial.dbo.EmployeeSalary SET EmployeeID = NULL
+WHERE Salary = '43000'; 
+
+  -- JOIN, INNER JOIN, LEFT/RIGHT OUTER JOIN, FULL OUTER JOIN --  
+
+SELECT Jobtitle , AVG(Salary) AS AVG_Salary
+FROM SQLTutorial.dbo.EmployeeDemographics
+INNER JOIN SQLTutorial.dbo.EmployeeSalary
+     ON EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID
+WHERE JobTitle = 'Salesman'
+GROUP BY JobTitle
+
+CREATE TABLE SQLTutorial.dbo.WareHouseEmployeeDemographics
+(EmployeeID int, 
+ FirstName varchar(50),
+ LastName varchar(50), 
+ Age int, 
+ Gender varchar(50)
+ )
+
+ -- INSERT INTO -- 
+
+
+INSERT INTO SQLTutorial.dbo.WareHouseEmployeeDemographics
+VALUES (1050, 'Roy', 'Anderson',31,'Male'),
+	   (1051, 'Hidetoshi', 'Hasagawa',40,'Male'),
+	   (1052, 'Val', 'Johnson',31,'Male'),
+	   (1013, 'Darryl', 'Philibin', NULL,'Male')
+
+INSERT INTO SQLTutorial.dbo.WareHouseEmployeeDemographics
+VALUES (1013, 'Darryl', 'Philibin', NULL,'Male')
+
+   -- DELETE --
+
+DELETE 
+FROM SQLTutorial.dbo.WareHouseEmployeeDemographics
+WHERE EmployeeID = 1013
+
+SELECT *
+FROM SQLTutorial.dbo.WareHouseEmployeeDemographics
+
+SELECT *
+FROM SQLTutorial.dbo.EmployeeDemographics
+FULL OUTER JOIN SQLTutorial.dbo.WareHouseEmployeeDemographics
+	ON EmployeeDemographics.EmployeeID = WareHouseEmployeeDemographics.EmployeeID
+
+	-- UNION --
+SELECT EmployeeID, FirstName, Age 
+FROM SQLTutorial.dbo.EmployeeDemographics
+UNION
+SELECT EmployeeID, JobTitle, Salary
+FROM SQLTutorial.dbo.EmployeeSalary
+ORDER BY EmployeeID ASC
+
+   -- CASE -- 
+
+SELECT FirstName, LastName, Age,
+CASE
+    WHEN Age = 38 THEN 'Stanley'
+    WHEN Age > 30 THEN 'Old' 
+	ELSE 'Baby' 
+END
+FROM SQLTutorial.dbo.EmployeeDemographics
+WHERE Age IS NOT NULL 
+ORDER BY Age
+
+SELECT FirstName, LastName, JobTitle, Salary, 
+CASE 
+    WHEN JobTitle = 'Salesman' THEN Salary + (Salary*0.10)
+	WHEN JobTitle = 'Accountant' THEN Salary + (Salary*0.05)
+	WHEN JobTitle = 'HR' THEN Salary +(Salary*0.01)
+	ELSE Salary + (Salary*0.03)
+END AS SalaryAfterRaise
+FROM SQLTutorial.dbo.EmployeeDemographics
+JOIN SQLTutorial.dbo.EmployeeSalary
+	ON EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID
+
+-- Having Clause
+
+SELECT JobTitle, COUNT(JobTitle) AS Number_Of_People
+FROM SQLTutorial.dbo.EmployeeDemographics
+JOIN SQLTutorial.dbo.EmployeeSalary
+	ON EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID
+GROUP BY JobTitle
+HAVING COUNT(JobTitle) > 1
+
+
+SELECT JobTitle, AVG(Salary) AS Average_of_Salary
+FROM SQLTutorial.dbo.EmployeeDemographics
+JOIN SQLTutorial.dbo.EmployeeSalary
+	ON EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID
+GROUP BY JobTitle
+HAVING AVG(Salary) > 45000
+ORDER BY AVG(Salary)
+
+
+-- UPDATING the table -- 
+
+SELECT * 
+FROM SQLTutorial.dbo.EmployeeDemographics
+
+UPDATE SQLTutorial.dbo.EmployeeDemographics
+SET EmployeeID = 1012
+WHERE FirstName = 'Holly' AND LastName = 'Flax'
+
+UPDATE SQLTutorial.dbo.EmployeeDemographics
+SET Age = 31, Gender = 'Female'
+WHERE FirstName = 'Holly' AND LastName = 'Flax'
+
+DELETE FROM SQLTutorial.dbo.EmployeeDemographics
+WHERE EmployeeID = 1005
+
+SELECT Demo.EmployeeID, Sal.Salary
+FROM SQLTutorial.dbo.EmployeeDemographics AS Demo
+LEFT JOIN SQLTutorial.dbo.EmployeeSalary AS Sal
+     ON Demo.EmployeeID = Sal.EmployeeID
+LEFT JOIN SQLTutorial.dbo.WareHouseEmployeeDemographics AS Ware
+	ON Demo.EmployeeID = Ware.EmployeeID
+
+
+	-- PARTITION -- 
+
+SELECT * 
+FROM SQLTutorial.dbo.EmployeeDemographics
+
+INSERT INTO SQLTutorial.dbo.EmployeeDemographics
+VALUES (1005, 'Toby', 'Flenderson', 32, 'Male')
+
+SELECT * 
+FROM SQLTutorial.dbo.EmployeeSalary
+
+SELECT FirstName, LastName, Gender, Salary, 
+COUNT(Gender) OVER (PARTITION BY Gender) AS TotalGender 
+FROM SQLTutorial.dbo.EmployeeDemographics dem
+JOIN SQLTutorial.dbo.EmployeeSalary sal
+	ON dem.EmployeeID = sal.EmployeeID
+
+
+SELECT Gender, COUNT(Gender) AS Number 
+FROM SQLTutorial.dbo.EmployeeDemographics dem
+JOIN SQLTutorial.dbo.EmployeeSalary sal
+	ON dem.EmployeeID = sal.EmployeeID
+GROUP BY Gender
