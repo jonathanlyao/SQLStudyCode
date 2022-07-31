@@ -47,3 +47,40 @@ FROM table1_name
 FULL OUTER JOIN table2_name
      ON table1_name.column = table2_name.column
 -- Here showing all contents from both tables
+
+# How to UNION two tables 
+
+SELECT column1_name, column2_name ... 
+FROM table1_name
+UNION (ALL)
+SELECT column1_name, column2_name ... 
+FROM table2_name
+
+# How to use CASE to return different result 
+
+SELECT Column_1, Column_2,
+CASE
+    WHEN Column = value THEN 'character'
+    WHEN Age > value THEN 'character' 
+	ELSE 'Character' 
+END AS Newcolumn_name
+FROM table_name
+WHERE Column_1 IS NOT NULL 
+ORDER BY Column_1
+
+# How to use HAVING to set the criteria for the output 
+
+SELECT Column_1, COUNT(Column_1) AS Newcolumn_name
+FROM table_name1
+JOIN table_name2
+	ON table_name1.column = table_name2.column
+GROUP BY Column_1
+HAVING COUNT(Column_1) > value
+
+SELECT Column_1, AVG(Column_2) AS Newcolumn_name
+FROM table_name1
+JOIN table_name2
+	ON table_name1.column = table_name2.column
+GROUP BY Column_1
+HAVING AVG(Column_2) > value
+ORDER BY AVG(Column_2)
