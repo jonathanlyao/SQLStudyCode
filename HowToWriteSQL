@@ -122,3 +122,22 @@ There are a total of 2 doctors.
 There are a total of 2 singers.
 There are a total of 3 actors.
 There are a total of 3 professors.
+
+/* How to write a queries with PIVOT operator*/
+SELECT <non-pivoted column>,  
+    [first pivoted column] AS <column name>,  
+    [second pivoted column] AS <column name>,  
+    ...  
+    [last pivoted column] AS <column name>  
+FROM  
+    (<SELECT query that produces the data>)   
+    AS <alias for the source query>  
+PIVOT  
+(  
+    <aggregation function>(<column being aggregated>)  
+FOR   
+[<column that contains the values that will become column headers>]   
+    IN ( [first pivoted column], [second pivoted column],  
+    ... [last pivoted column])  
+) AS <alias for the pivot table>  
+<optional ORDER BY clause>;  
