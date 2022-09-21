@@ -34,30 +34,6 @@ SELECT *
 FROM table1_name
 LEFT OUTER JOIN table2_name
 
-/* How to use Concatnate and + to write the occupations */
-SELECT Name + '(' + (LEFT(Occupation,1)) + ')'
-FROM OCCUPATIONS
-ORDER BY Name ASC; 
-
-SELECT CONCAT('There are a total of', ' ', count(Occupation), ' ', LOWER(Occupation),'s.')
-FROM OCCUPATIONS
-GROUP BY Occupation
-
-[Output] : 
-Ashely(P)
-Christeen(P)
-Jane(A)
-Jenny(D)
-Julia(A)
-Ketty(P)
-Maria(A)
-Meera(S)
-Priya(S)
-Samantha(D)
-There are a total of 2 doctors.
-There are a total of 2 singers.
-There are a total of 3 actors.
-There are a total of 3 professors.
 ORDER BY COUNT(Occupation) ASC, Occupation ASC; 
      ON table1_name.column = table2_name.column
 -- Here only showing contents from table1
@@ -121,3 +97,28 @@ JOIN table_name2 T2
 
 
 GROUP BY Column_1
+
+/* How to use Concatnate and + to write the occupations */
+SELECT Name + '(' + (LEFT(Occupation,1)) + ')'
+FROM OCCUPATIONS
+ORDER BY Name ASC; 
+
+SELECT CONCAT('There are a total of', ' ', count(Occupation), ' ', LOWER(Occupation),'s.')
+FROM OCCUPATIONS
+GROUP BY Occupation
+
+[Output] : 
+Ashely(P)
+Christeen(P)
+Jane(A)
+Jenny(D)
+Julia(A)
+Ketty(P)
+Maria(A)
+Meera(S)
+Priya(S)
+Samantha(D)
+There are a total of 2 doctors.
+There are a total of 2 singers.
+There are a total of 3 actors.
+There are a total of 3 professors.
