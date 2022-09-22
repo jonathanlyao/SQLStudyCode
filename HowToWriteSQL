@@ -141,3 +141,8 @@ FOR
     ... [last pivoted column])  
 ) AS <alias for the pivot table>  
 <optional ORDER BY clause>;  
+
+-- Replace function -- 
+REPLACE(string, from_string, new_string)
+
+
